@@ -7,13 +7,13 @@ import java.sql.SQLException;
 public class AzureSqlDatabaseConnection {
 	static Connection con;
 	//define and initialize database driver
-	private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	private static final String DB_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	//define and initialize database url
-	private static final String DB_CONNECTION = "jdbc:oracle:thin:@localhost:1521:xe";
+	private static final String DB_CONNECTION = "jdbc:sqlserver://nikkospace.database.windows.net:1433;database=Nikko Space;user=nikko@nikkospace;password=Muhammadyazid01!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 	//define and initialize database user
-	private static final String DB_USER = "nikko";
+	private static final String DB_USER = "nikko@nikkospace";
 	//define and initialize database password
-	private static final String DB_PASSWORD = "system";
+	private static final String DB_PASSWORD = "Muhammadyazid01!";
 	
 	public static Connection getConnection() {
 	
