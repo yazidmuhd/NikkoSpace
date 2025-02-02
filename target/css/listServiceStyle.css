@@ -1,0 +1,372 @@
+@charset "ISO-8859-1";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* Variables */
+:root {
+  --primary-color: #dcd7f8;
+  --secondary-color: #f0f6ff;
+  --accent-color: #ffd700;
+  --text-dark: #3f3b57;
+  --text-light: #908ca3;
+  --background-light: #ffffff;
+  --background-gray: #f8f9fa;
+  --max-width: 1000px;
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  isolation: isolate;
+  width: 100%;
+  z-index: 9;
+}
+
+.nav__header {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+}
+
+.nav__logo a {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.nav__menu__btn {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.nav__links {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--white);
+  transition: transform 0.5s;
+  z-index: -1;
+}
+
+.nav__links.open {
+  transform: translateY(100%);
+}
+
+.nav__links a {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.nav__links a:hover {
+  color: var(--primary-color);
+}
+
+@media (width > 768px) {
+  nav {
+    position: static;
+    padding: 2rem 1rem;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .nav__header {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .nav__logo a {
+    font-size: 1.5rem;
+  }
+
+  .nav__menu__btn {
+    display: none;
+  }
+
+  .nav__links {
+    position: static;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: transparent;
+    transform: none;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+/* Header */
+header {
+  position: relative;
+  isolation: isolate;
+  background-color: soft;
+  padding-top: 0;
+}
+
+.header__container {
+  align-items: center;
+  max-width: var(--max-width);
+  padding: 5rem 1rem;
+  margin: auto;
+}
+
+.header__content h1 {
+  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 4.5rem;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.header__content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.header__btn button {
+  padding-block: 0.5rem;
+  padding-inline: 1.5rem 0.5rem;
+  margin-inline: auto;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: var(--text-dark);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.header__btn button span {
+  padding: 5px 7px;
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+}
+
+.header__btn button:hover {
+  color: var(--white);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.header__btn button:hover span {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Service Styling */
+
+.service {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px;
+}
+
+.service:hover {
+  background-color: #f1f1f1;
+  border-color: #aaa;
+}
+
+.service img {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.service-details {
+  flex-grow: 1;
+}
+
+.service-details h3 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.service-details p {
+  margin: 0 0 10px 0;
+  color: #666;
+}
+
+.service-details ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #666;
+}
+
+.service-details ul li {
+  margin-bottom: 5px;
+}
+
+input[type="radio"] {
+  margin-bottom: 5px; /* Hide the radio button by default */
+}
+
+input[type="radio"]:checked + label .radio-visible {
+  display: inline-block; /* Show the visible part of the radio button when checked */
+}
+
+.radio-visible {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #4CAF50;
+  border-radius: 50%;
+  margin-left: 10px;
+  display: none; /* Initially hide the radio button */
+}
+
+input[type="radio"]:checked + label .radio-visible:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  display: block;
+  margin: 3px auto;
+}
+
+.service-title {
+  font-weight: bold;
+  background: #ffecb3;
+  color: #333;
+  text-align: center;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  padding-left: 20px;
+  margin: 0;
+  list-style-type: disc;
+}
+
+ul li {
+  line-height: 1.8;
+}
+
+/* Header Styling */
+header {
+  position: relative;
+  isolation: isolate;
+  padding-top: 0;
+  background: linear-gradient(to right, #dcd6f7, #ebe6ff); /* Subtle gradient effect */
+  color: #333;
+}
+
+.header__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.header__content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.header__content h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.header__btn button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--text-dark);
+  border-radius: 5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.header__btn button:hover {
+  background-color: var(--text-dark);
+  color: var(--background-light);
+}
+
+/* Footer Styling */
+.footer {
+  background: linear-gradient(darkslategray, rgb(55, 56, 56));
+}
+
+.footer_container {
+  text-align: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-gap: 3rem;
+  padding: 2rem 0rem;
+  color: white;
+}
+
+.footer_logo {
+  margin-left: auto;
+  max-width: 70%;
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+}
+
+.footer_p {
+  margin-top: 1.2rem;
+  margin-left: 30%;
+  color: whitesmoke;
+}
+
+.footer_list_item {
+  margin: 0.5rem 0rem;
+  color: whitesmoke;
+}
+
+.footer_bottom_container {
+  width: 100%;
+  text-align: center;
+}
+
+.footer_copy {
+  color: whitesmoke;
+  padding: 1.5rem 0rem;
+}
