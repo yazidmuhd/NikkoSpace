@@ -442,30 +442,31 @@ public class AppointmentDAO {
         return null;
     }
 
-    public boolean isTimeSlotAvailable(String appDate, String appTime) {
-        String query = "SELECT COUNT(*) FROM Appointment WHERE TO_CHAR(appDate, 'YYYY-MM-DD') = ? AND TO_CHAR(appTime, 'HH24:MI') = ?";
+   public boolean isTimeSlotAvailable(String appDate, String appTime) {
+    String query = "SELECT COUNT(*) FROM Appointment WHERE FORMAT(appDate, 'yyyy-MM-dd') = ? AND FORMAT(appTime, 'HH:mm') = ?";
 
-        try (Connection connection = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+    try (Connection connection = AzureSqlDatabaseConnection.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, appDate);
-            preparedStatement.setString(2, appTime);
+        preparedStatement.setString(1, appDate);
+        preparedStatement.setString(2, appTime);
 
-            System.out.println("Executing Query: " + query);
-            System.out.println("Date: " + appDate + " | Time: " + appTime);
+        System.out.println("Executing Query: " + query);
+        System.out.println("Date: " + appDate + " | Time: " + appTime);
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    int count = resultSet.getInt(1);
-                    System.out.println("Count of existing appointments: " + count);
-                    return count == 0; // True if count is 0 (slot available)
-                }
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                System.out.println("Count of existing appointments: " + count);
+                return count == 0; // True if count is 0 (slot available)
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return false;
+}
+
 
 
 }
