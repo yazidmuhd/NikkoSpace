@@ -4,7 +4,6 @@ public class Pet {
     private int petID;
     private String petName;
     private double petWeight;
-    private byte[] petPicture; // Blob stored as byte array
     private String petStatus;
     private int custID;
 
@@ -33,13 +32,6 @@ public class Pet {
         this.petWeight = petWeight;
     }
 
-    public byte[] getPetPicture() {
-        return petPicture;
-    }
-
-    public void setPetPicture(byte[] petPicture) {
-        this.petPicture = petPicture;
-    }
 
     public String getPetStatus() {
         return petStatus;
@@ -65,7 +57,6 @@ public class Pet {
                 "petId=" + petID +
                 ", petName='" + petName + '\'' +
                 ", petWeight=" + petWeight +
-                ", petPicture=" + (petPicture != null ? "Exists" : "No Picture") +
                 ", petStatus='" + petStatus + '\'' +
                 ", custId=" + custID +
                 '}';

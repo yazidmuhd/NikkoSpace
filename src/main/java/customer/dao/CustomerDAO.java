@@ -9,54 +9,67 @@ import java.util.List;
 
 public class CustomerDAO {
 
-	public void customer(Customer customer) {
-	    Connection con = null;
-	    PreparedStatement pstmt = null;
+	public int customer(Customer customer) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int generatedCustId = 0; 
 
-	    try {
-	        // Use AzureSqlDatabaseConnection to get the connection
-	        con = AzureSqlDatabaseConnection.getConnection();
+        try {
+            con = AzureSqlDatabaseConnection.getConnection();
+            if (con == null) {
+                System.out.println("ERROR: Database connection is null");
+                return 0;
+            }
 
-	        if (con == null) {
-	            throw new RuntimeException("Database connection is null");
-	        }
+            con.setAutoCommit(false);
 
-	        // Exclude cust_id and session_status as they are auto-incremented and default, respectively
-	        String sql = "INSERT INTO Customers (username, password, email, phoneNumber, birthDate, gender, created_at, updated_at) " +
-	                     "VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
-	        pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	        pstmt.setString(1, customer.getUsername());
-	        pstmt.setString(2, customer.getPassword());
-	        pstmt.setString(3, customer.getEmail());
-	        pstmt.setString(4, customer.getPhoneNumber());
-	        pstmt.setDate(5, customer.getBirthDate());
-	        pstmt.setString(6, customer.getGender());
+            String insertQuery = "INSERT INTO Customers (username, password, email, phoneNumber, birthDate, gender, created_at, updated_at) " +
+                                 "VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            
+            String selectCustIdQuery = "SELECT cust_pk_seq.CURRVAL FROM dual";
 
-	        int rowsInserted = pstmt.executeUpdate();
-	        if (rowsInserted > 0) {
-	            System.out.println("A new customer was successfully inserted.");
+            pstmt = con.prepareStatement(insertQuery);
+            pstmt.setString(1, customer.getUsername());
+            pstmt.setString(2, customer.getPassword());
+            pstmt.setString(3, customer.getEmail());
+            pstmt.setString(4, customer.getPhoneNumber());
+            pstmt.setDate(5, customer.getBirthDate());
+            pstmt.setString(6, customer.getGender());
 
-	            // Retrieve the generated cust_id
-	            ResultSet rs = pstmt.getGeneratedKeys();
-	            if (rs.next()) {
-	                int generatedId = rs.getInt(1);
-	                customer.setCustId(generatedId); // Set the generated ID back to the Customer object
-	                System.out.println("Generated Customer ID: " + generatedId);
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (pstmt != null) pstmt.close();
-	            if (con != null) con.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
+            int rowsInserted = pstmt.executeUpdate();
+            if (rowsInserted == 0) {
+                con.rollback();
+                throw new SQLException("Failed to insert customer.");
+            }
 
+            try (PreparedStatement selectCustIdStmt = con.prepareStatement(selectCustIdQuery);
+                 ResultSet generatedKeys = selectCustIdStmt.executeQuery()) {
+                if (generatedKeys.next()) {
+                    generatedCustId = generatedKeys.getInt(1);
+                    customer.setCustId(generatedCustId);
+                    System.out.println("Customer registered with ID: " + generatedCustId);
+                    con.commit();
+                } else {
+                    con.rollback();
+                    throw new SQLException("ERROR: Failed to retrieve generated customer ID.");
+                }
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR: SQL Exception occurred - " + e.getMessage());
+            return 0;
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return generatedCustId;
+    }
 
 	public int validateLogin(String username, String password) {
 	    String sql = "SELECT cust_id FROM Customers WHERE username = ? AND password = ?";
@@ -74,7 +87,7 @@ public class CustomerDAO {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-	    return -1; // Return -1 for invalid login
+	    return -1; 
 	}
 
 	public void updateSessionStatus(int custId, String status) {
@@ -82,7 +95,7 @@ public class CustomerDAO {
 	    try (Connection con = AzureSqlDatabaseConnection.getConnection();
 	         PreparedStatement ps = con.prepareStatement(sql)) {
 
-	        ps.setString(1, status); // Set status jadi 'inactive'
+	        ps.setString(1, status); 
 	        ps.setInt(2, custId); 
 	        ps.executeUpdate();
 	    } catch (SQLException e) {
