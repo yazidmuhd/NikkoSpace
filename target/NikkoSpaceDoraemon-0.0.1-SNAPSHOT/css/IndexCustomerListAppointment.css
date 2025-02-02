@@ -1,0 +1,374 @@
+@charset "ISO-8859-1";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --primary-color: #dcd7f8;
+  --text-dark: #3f3b57;
+  --text-light: #908ca3;
+  --white: #ffffff;
+  --max-width: 1000px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+ul {
+  list-style: none;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+nav {
+  position: fixed;
+  isolation: isolate;
+  width: 100%;
+  z-index: 9;
+}
+
+.nav__header {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+}
+
+.nav__logo a {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.nav__menu__btn {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.nav__links {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--white);
+  transition: transform 0.5s;
+  z-index: -1;
+}
+
+.nav__links.open {
+  transform: translateY(100%);
+}
+
+.nav__links a {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.nav__links a:hover {
+  color: var(--primary-color);
+}
+
+@media (width > 768px) {
+  nav {
+    position: static;
+    padding: 2rem 1rem;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .nav__header {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .nav__logo a {
+    font-size: 1.5rem;
+  }
+
+  .nav__menu__btn {
+    display: none;
+  }
+
+  .nav__links {
+    position: static;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: transparent;
+    transform: none;
+  }
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(darkslategray, rgb(55, 56, 56));
+}
+
+.footer_container {
+  text-align: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-gap: 3rem;
+  padding: 2rem 0rem;
+  color: white;
+}
+
+.footer_logo {
+  margin-left: auto;
+  max-width: 70%;
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+}
+
+.footer_p {
+  margin-top: 1.2rem;
+  margin-left: 30%;
+  color: whitesmoke;
+}
+
+.footer_list_item {
+  margin: 0.5rem 0rem;
+  color: whitesmoke;
+}
+
+.footer_bottom_container {
+  width: 100%;
+  text-align: center;
+}
+
+.footer_copy {
+  color: whitesmoke;
+  padding: 1.5rem 0rem;
+}
+
+/* Header */
+header {
+  position: relative;
+  isolation: isolate;
+  padding-top: 0;
+  background: linear-gradient(to right, #dcd6f7, #ebe6ff); /* Subtle gradient effect */
+  color: #333;
+}
+
+.header__container {
+  align-items: center;
+  max-width: var(--max-width);
+  padding: 5rem 1rem;
+  margin: auto;
+}
+
+.header__content h1 {
+  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 4.5rem;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.header__content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.header__btn button {
+  padding-block: 0.5rem;
+  padding-inline: 1.5rem 0.5rem;
+  margin-inline: auto;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: var(--text-dark);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.header__btn button span {
+  padding: 5px 7px;
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+}
+
+.header__btn button:hover {
+  color: var(--white);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.header__btn button:hover span {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Center the table on the page */
+.appointment-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Glassmorphism Table Styling */
+.appointment-list table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15); /* Transparent background */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Table Header */
+.appointment-list table thead {
+    background: rgba(63, 81, 181, 0.8); /* Deep Blue */
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.appointment-list table thead th {
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Table Rows */
+.appointment-list table tbody {
+    background: rgba(255, 255, 255, 0.3); /* Frosted white */
+}
+
+.appointment-list table tbody tr {
+    transition: all 0.3s ease-in-out;
+}
+
+.appointment-list table tbody tr:hover {
+    background: rgba(63, 81, 181, 0.15); /* Light Blue on hover */
+    transform: scale(1.02);
+}
+
+.appointment-list table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.25); /* Slightly different shade for alternate rows */
+}
+
+.appointment-list table tbody td {
+    padding: 15px;
+    font-size: 0.95em;
+    text-align: center;
+    color: #333;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Buttons */
+.btn-view, .btn-update {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-view {
+    background: linear-gradient(145deg, #4caf50, #43a047); /* Green */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-view:hover {
+    background: linear-gradient(145deg, #43a047, #4caf50);
+}
+
+.btn-update {
+    background: linear-gradient(145deg, #ff9800, #fb8c00); /* Orange */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-update:hover {
+    background: linear-gradient(145deg, #fb8c00, #ff9800);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .appointment-list table {
+        width: 95%; /* Adjust table width on smaller screens */
+    }
+
+    .appointment-list table thead th,
+    .appointment-list table tbody td {
+        font-size: 0.85em;
+        padding: 10px;
+    }
+}
+.header__btn button {
+	padding-block: 0.5rem;
+	padding-inline: 1.5rem 0.5rem;
+	margin-inline: auto;
+	outline: none;
+	border: none;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 1rem;
+	color: var(- -text-dark);
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 5rem;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.header__btn button span {
+	padding: 5px 7px;
+	font-size: 1.5rem;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 100%;
+}
+
+.header__btn button:hover {
+	color: var(- -white);
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.header__btn button:hover span {
+	background-color: rgba(0, 0, 0, 0.4);
+}
