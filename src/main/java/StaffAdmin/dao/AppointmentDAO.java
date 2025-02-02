@@ -13,66 +13,68 @@ import java.util.List;
 public class AppointmentDAO {
 
 	public int createAppointment(Appointment appointment) {
-	    String insertAppointmentQuery = "INSERT INTO Appointment (appDate, appTime, service_id, pet_id, appRemark) VALUES (?, ?, ?, ?, ?)";
-	    String selectAppIdQuery = "SELECT app_id_seq.CURRVAL FROM dual";
-	    String insertStatusQuery = "INSERT INTO Status (statusName, app_id) VALUES ('Pending', ?)";
-	    String insertResultQuery = "INSERT INTO Result (tempDescription, Body, Ear, Nose, Tail, Mouth, Other, app_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String insertAppointmentQuery = "INSERT INTO Appointment (appDate, appTime, service_id, pet_id, appRemark) VALUES (?, ?, ?, ?, ?)";
+    String insertStatusQuery = "INSERT INTO Status (statusName, app_id) VALUES ('Pending', ?)";
+    String insertResultQuery = "INSERT INTO Result (tempDescription, Body, Ear, Nose, Tail, Mouth, Other, app_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-	    try (Connection connection = AzureSqlDatabaseConnection.getConnection()) {
-	        connection.setAutoCommit(false); 
+    try (Connection connection = AzureSqlDatabaseConnection.getConnection()) {
+        connection.setAutoCommit(false); // Start transaction
 
-	        int appId;
+        int appId = 0;
 
-	        try (PreparedStatement appointmentStmt = connection.prepareStatement(insertAppointmentQuery)) {
-	            appointmentStmt.setDate(1, appointment.getAppDate());
-	            appointmentStmt.setTimestamp(2, appointment.getAppTime());
-	            appointmentStmt.setInt(3, appointment.getServiceId());
-	            appointmentStmt.setInt(4, appointment.getPetId());
-	            appointmentStmt.setString(5, appointment.getAppRemark());
+        // Insert Appointment and Retrieve Generated ID
+        try (PreparedStatement appointmentStmt = connection.prepareStatement(insertAppointmentQuery, Statement.RETURN_GENERATED_KEYS)) {
+            appointmentStmt.setDate(1, appointment.getAppDate());
+            appointmentStmt.setTimestamp(2, appointment.getAppTime());
+            appointmentStmt.setInt(3, appointment.getServiceId());
+            appointmentStmt.setInt(4, appointment.getPetId());
+            appointmentStmt.setString(5, appointment.getAppRemark());
 
-	            int rowsInserted = appointmentStmt.executeUpdate();
-	            if (rowsInserted == 0) {
-	                connection.rollback();
-	                throw new SQLException("Failed to insert appointment.");
-	            }
+            int rowsInserted = appointmentStmt.executeUpdate();
+            if (rowsInserted == 0) {
+                connection.rollback();
+                throw new SQLException("Failed to insert appointment.");
+            }
 
-	            // Retrieve the generated app_id
-	            try (PreparedStatement selectAppIdStmt = connection.prepareStatement(selectAppIdQuery);
-	                 ResultSet rs = selectAppIdStmt.executeQuery()) {
-	                if (rs.next()) {
-	                    appId = rs.getInt(1);
-	                } else {
-	                    connection.rollback();
-	                    throw new SQLException("Failed to retrieve generated app_id.");
-	                }
-	            }
-	        }
-	        
-	        try (PreparedStatement statusStmt = connection.prepareStatement(insertStatusQuery)) {
-	            statusStmt.setInt(1, appId);
-	            statusStmt.executeUpdate();
-	        }
+            // Retrieve the generated app_id
+            try (ResultSet rs = appointmentStmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    appId = rs.getInt(1);
+                } else {
+                    connection.rollback();
+                    throw new SQLException("Failed to retrieve generated app_id.");
+                }
+            }
+        }
 
-	        try (PreparedStatement resultStmt = connection.prepareStatement(insertResultQuery)) {
-	        	resultStmt.setString(1, "-"); 
-	            resultStmt.setString(2, "-");
-	            resultStmt.setString(3, "-");
-	            resultStmt.setString(4, "-");
-	            resultStmt.setString(5, "-");
-	            resultStmt.setString(6, "-");
-	            resultStmt.setString(7, "-");
-	            resultStmt.setInt(8, appId);
-	            resultStmt.executeUpdate();
-	        }
+        // Insert Status
+        try (PreparedStatement statusStmt = connection.prepareStatement(insertStatusQuery)) {
+            statusStmt.setInt(1, appId);
+            statusStmt.executeUpdate();
+        }
 
-	        connection.commit();
-	        return appId; 
+        // Insert Default Result Values
+        try (PreparedStatement resultStmt = connection.prepareStatement(insertResultQuery)) {
+            resultStmt.setString(1, "-"); 
+            resultStmt.setString(2, "-");
+            resultStmt.setString(3, "-");
+            resultStmt.setString(4, "-");
+            resultStmt.setString(5, "-");
+            resultStmt.setString(6, "-");
+            resultStmt.setString(7, "-");
+            resultStmt.setInt(8, appId);
+            resultStmt.executeUpdate();
+        }
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
-	}
+        connection.commit(); // Commit all changes
+        return appId; // Return the generated appointment ID
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return 0; // Return 0 on failure
+    }
+}
+
 
 	public int createAppointmentAndGetId(Appointment appointment) {
 	    String query = "INSERT INTO Appointment (appDate, appTime, service_id, pet_id, appRemark) VALUES (?, ?, ?, ?, ?)";
