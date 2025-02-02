@@ -64,7 +64,6 @@ public class CustomerController extends HttpServlet {
     }
 
     private void signupCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -72,41 +71,46 @@ public class CustomerController extends HttpServlet {
         String birthDateStr = request.getParameter("birthDate");
         String gender = request.getParameter("gender");
 
-        // Validate input
+        System.out.println("Received Signup Request: " + username + ", " + email);
+
         if (username == null || email == null || password == null || phoneNumber == null || birthDateStr == null || gender == null) {
+            System.out.println("ERROR: Missing input fields.");
             request.setAttribute("errorMessage", "All fields are required.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        Date birthDate = Date.valueOf(birthDateStr); 
-
-        Customer customer = new Customer();
-        customer.setUsername(username);
-        customer.setEmail(email);
-        customer.setPassword(password);
-        customer.setPhoneNumber(phoneNumber);
-        customer.setBirthDate(birthDate);
-        customer.setGender(gender);
-
         try {
-            customerDAO.customer(customer); 
-            if (customer.getCustId() > 0) { 
-                response.sendRedirect("login.jsp");
+            Date birthDate = Date.valueOf(birthDateStr);
+
+            Customer customer = new Customer();
+            customer.setUsername(username);
+            customer.setEmail(email);
+            customer.setPassword(password);
+            customer.setPhoneNumber(phoneNumber);
+            customer.setBirthDate(birthDate);
+            customer.setGender(gender);
+
+            int generatedCustomerId = customerDAO.customer(customer);
+
+            if (generatedCustomerId > 0) { 
+                System.out.println("Signup successful! Redirecting to login.jsp...");
+                response.sendRedirect("login.jsp"); 
             } else {
+                System.out.println("ERROR: Signup failed.");
                 request.setAttribute("errorMessage", "Signup failed. Please try again.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred. Please try again.");
+            System.out.println("ERROR: Exception occurred - " + e.getMessage());
+            request.setAttribute("errorMessage", "An error occurred during signup. Please try again.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
             dispatcher.forward(request, response);
         }
     }
-
 
     private void loginCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -211,54 +215,76 @@ public class CustomerController extends HttpServlet {
         }
     }
     private void updateCustomerProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int custId = Integer.parseInt(request.getParameter("custID"));
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String birthDateStr = request.getParameter("birthDate");
-        String gender = request.getParameter("gender");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        try {
+            HttpSession session = request.getSession(false);
+            Integer custId = (Integer) session.getAttribute("custID");
+            if (custId == null) {
+                String custIdParam = request.getParameter("custID");
+                if (custIdParam == null || custIdParam.isEmpty()) {
+                    throw new IllegalArgumentException("Customer ID is missing in the request.");
+                }
+                custId = Integer.parseInt(custIdParam);
+            }
 
-        if (password != null && !password.isEmpty() && !password.equals(confirmPassword)) {
-            request.setAttribute("error", "Passwords do not match.");
+            String username = request.getParameter("username");
+            String email = request.getParameter("email");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String birthDateStr = request.getParameter("birthDate");
+            String gender = request.getParameter("gender");
+            String password = request.getParameter("password");
+            String confirmPassword = request.getParameter("confirmPassword");
+
+            if (password != null && !password.isEmpty() && !password.equals(confirmPassword)) {
+                request.setAttribute("error", "Passwords do not match.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+
+            Date birthDate = Date.valueOf(birthDateStr);
+
+            Customer customer = new Customer();
+            customer.setCustId(custId);
+            customer.setUsername(username);
+            customer.setEmail(email);
+            customer.setPhoneNumber(phoneNumber);
+            customer.setBirthDate(birthDate);
+            customer.setGender(gender);
+            if (password != null && !password.isEmpty()) {
+                customer.setPassword(password);
+            }
+            boolean isUpdated = customerDAO.updateCustomerDetails(customer);
+            if (isUpdated) {
+                Customer updatedCustomer = customerDAO.getCustomerById(custId);
+
+                request.setAttribute("user_Id", updatedCustomer.getCustId());
+                request.setAttribute("username", updatedCustomer.getUsername());
+                request.setAttribute("email", updatedCustomer.getEmail());
+                request.setAttribute("phoneNumber", updatedCustomer.getPhoneNumber());
+                request.setAttribute("birthDate", updatedCustomer.getBirthDate());
+                request.setAttribute("gender", updatedCustomer.getGender());
+                request.setAttribute("updatedAt", updatedCustomer.getUpdatedAt());
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                request.setAttribute("error", "Failed to update profile. Please try again.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
+                dispatcher.forward(request, response);
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Invalid input: " + e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
             dispatcher.forward(request, response);
-            return;
-        }
-
-        Date birthDate = Date.valueOf(birthDateStr); 
-
-        Customer customer = new Customer();
-        customer.setCustId(custId);
-        customer.setUsername(username);
-        customer.setEmail(email);
-        customer.setPhoneNumber(phoneNumber);
-        customer.setBirthDate(birthDate);
-        customer.setGender(gender);
-        if (password != null && !password.isEmpty()) {
-            customer.setPassword(password);
-        }
-        boolean isUpdated = customerDAO.updateCustomerDetails(customer);
-        if (isUpdated) {
-            Customer updatedCustomer = customerDAO.getCustomerById(custId);
-
-            request.setAttribute("user_Id", updatedCustomer.getCustId());
-            request.setAttribute("username", updatedCustomer.getUsername());
-            request.setAttribute("email", updatedCustomer.getEmail());
-            request.setAttribute("phoneNumber", updatedCustomer.getPhoneNumber());
-            request.setAttribute("birthDate", updatedCustomer.getBirthDate());
-            request.setAttribute("gender", updatedCustomer.getGender());
-            request.setAttribute("updatedAt", updatedCustomer.getUpdatedAt());
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("error", "Failed to update profile. Please try again.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "An error occurred while updating your profile.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
             dispatcher.forward(request, response);
         }
     }
+
     	
     private void loadUpdateProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession(false);

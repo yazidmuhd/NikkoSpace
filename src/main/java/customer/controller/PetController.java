@@ -41,6 +41,9 @@ public class PetController extends HttpServlet {
                 case "updatePet":
                     loadUpdatePetForm(request, response); // New method for loading update form
                     break;
+                case "showPetCreateForm":
+                    showPetCreateForm(request, response); // Add this case
+                    break;
                 default:
                     response.sendRedirect("Profile.jsp");
                     break;
@@ -130,27 +133,27 @@ public class PetController extends HttpServlet {
 
 
     private void getPetList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(false); // Get the session, but don't create a new one
+        HttpSession session = request.getSession(false); 
         if (session != null) {
-            Integer custID = (Integer) session.getAttribute("custID"); // Retrieve custID from session
+            Integer custID = (Integer) session.getAttribute("custID"); 
 
             if (custID != null) {
-                List<Pet> petList = petDAO.getPetsByCustomerID(custID); // Fetch pet list
+                List<Pet> petList = petDAO.getPetsByCustomerID(custID); 
                 request.setAttribute("petList", petList);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("CustomerPetList.jsp");
                 dispatcher.forward(request, response);
             } else {
-                response.sendRedirect("login.jsp"); // Redirect to login if custID is missing
+                response.sendRedirect("login.jsp"); 
             }
         } else {
-            response.sendRedirect("login.jsp"); // Redirect to login if no session exists
+            response.sendRedirect("login.jsp");
         }
     }
 
 
     private void viewPet(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int petID = Integer.parseInt(request.getParameter("petID"));
-        Pet pet = petDAO.getPetByID(petID); // Fetch pet details from the database
+        Pet pet = petDAO.getPetByID(petID); 
 
         if (pet != null) {
             request.setAttribute("petName", pet.getPetName());
@@ -165,27 +168,39 @@ public class PetController extends HttpServlet {
     }
     
     private void loadUpdatePetForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Retrieve petID from request parameter
+        
         int petID = Integer.parseInt(request.getParameter("petID"));
         
-        // Fetch the pet details from the database
         Pet pet = petDAO.getPetByID(petID);
 
-        // Check if the pet exists
         if (pet != null) {
-            // Set pet details as request attributes
             request.setAttribute("petID", pet.getPetID());
             request.setAttribute("petName", pet.getPetName());
             request.setAttribute("petWeight", pet.getPetWeight());
             request.setAttribute("petStatus", pet.getPetStatus());
             request.setAttribute("custID", pet.getCustID());
 
-            // Forward to CustomerEditPet.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("CustomerEditPet.jsp");
             dispatcher.forward(request, response);
         } else {
-            // Redirect to pet list if pet not found
             response.sendRedirect("PetController?action=getPetList");
+        }
+    }
+    
+    private void showPetCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("custID") == null) {
+            response.sendRedirect("login.jsp"); 
+            return;
+        }
+
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("CustomerCreatePet.jsp");
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServletException("Error loading create pet form", e);
         }
     }
 
