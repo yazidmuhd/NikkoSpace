@@ -18,48 +18,66 @@
             </div>
         </div>
         <ul class="nav__links" id="nav-links">
-            <li><a href="CustomerIndexHome.jsp">Home</a></li>
+            <li><a href="IndexHome.jsp">Home</a></li>
             <li><a href="PetController?action=getPetList">Pet</a></li>
             <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
             <li><a href="CustomerServiceController?action=listServices">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
         </ul>
     </nav>
 
-    <header id="home">
-        <div class="section__container header__container">
-            <div class="header__content">
-                <h1 style="text-align: center;">Pet Details</h1>
-                <div class="form-container">
-                    <!-- Pet Details -->
-                    <div class="form-group">
-                        <label>Pet Name:</label>
-                        <span><%= request.getAttribute("petName") %></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Pet Weight:</label>
-                        <span><%= request.getAttribute("petWeight") %> kg</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Pet Status:</label>
-                        <span><%= request.getAttribute("petStatus") %></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Customer ID:</label>
-                        <span><%= request.getAttribute("custID") %></span>
-                    </div>
-                    <!-- Back Button -->
-                    <div class="button-container">
+   <header id="home">
+		<div class="section__container header__container">
+			<div class="header__content">
+				<h1 style="text-align: center;">Pet Details</h1>
+				<h2>Details of the pet</h2>
+				<div class="container">
+					<table>
+						<thead>
+							<tr>
+								<th>Field</th>
+								<th>Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							// Check if pet details are available
+							if (request.getAttribute("petName") != null) {
+							%>
+							<tr>
+								<td>Pet Name</td>
+								<td><%= request.getAttribute("petName") %></td>
+							</tr>
+							<tr>
+								<td>Pet Weight</td>
+								<td><%= request.getAttribute("petWeight") %> kg</td>
+							</tr>
+							<tr>
+								<td>Pet Status</td>
+								<td><%= request.getAttribute("petStatus") %></td>
+							</tr>
+							
+							<%
+							} else {
+							%>
+							<tr>
+								<td colspan="2">No pet found.</td>
+							</tr>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
+				<div class="header__btn">
                         <button type="button" class="btn btn-cancel" onclick="window.location.href='PetController?action=getPetList'">
-                            Back
+                            Back<span><i class="ri-arrow-right-line"></i></span>
                         </button>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </header>
-
+			</div>
+		</div>
+	</header>
     <footer class="footer">
         <div class="main_container footer_container">
             <div class="footer_item">
@@ -100,7 +118,5 @@
             </div>
         </div>
     </footer>
-
-    
 </body>
 </html>

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
 <%@ page import="customer.model.Service" %>
 
@@ -8,9 +7,10 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Service Page</title>
-    <link rel="stylesheet" href="css/listServiceStyle.css">
+    <link rel="stylesheet" href="css/StaffViewService.css">
 </head>
 <body>
+<!-- Navigation -->
 <nav>
     <div class="nav__header">
         <div class="nav__logo">
@@ -22,65 +22,70 @@
     </div>
     <ul class="nav__links" id="nav-links">
         <li><a href="CustomerIndexHome.jsp">Home</a></li>
-        <li><a href="PetController?action=getPetList">Pet</a></li>
-        <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
-        <li><a href="ServiceController?action=listServices">Service</a></li>
-        <li><a href="CustomerController?action=getProfile">Profile</a></li>
-        <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="PetController?action=getPetList">Pet</a></li>
+            <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
+            <li><a href="CustomerServiceController?action=listServices">Service</a></li>
+            <li><a href="CustomerController?action=getProfile">Profile</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
     </ul>
 </nav>
 
+<!-- Header -->
 <header id="home">
     <div class="section__container header__container">
         <div class="header__content">
-            <h1>List of Services</h1>
+            <h1 style="text-align: center;">List of Services</h1>
         </div>
     </div>
+</header>
 
-    <div class="service-container">
-        <%
+<!-- Service List Section -->
+<div class="packages-container">
+    <%
         // Retrieve the serviceList from the request attribute
         List<Service> services = (List<Service>) request.getAttribute("serviceList");
 
         if (services == null || services.isEmpty()) {
-        %>
-        <h2 style="text-align: center; color: #666;">No services available at the moment.</h2>
-        <%
+    %>
+    <h2 style="text-align: center; color: #666;">No services yet, please add a service by clicking the button below.</h2>
+    <%
         } else {
             for (Service service : services) {
-        %>
-        <div class="service">
-            <div class="service-details">
-                <h3><%= service.getServiceName() %></h3>
-                <p>
-                    <% 
-                        String description = service.getServiceDescription();
-                        String[] descriptionItems = description.split(",");
-                        for (int i = 0; i < descriptionItems.length; i++) {
-                            out.print(descriptionItems[i]);
-                            if (i < descriptionItems.length - 1) {
-                                out.print("<br>"); 
-                            }
-                        }
-                    %>
-                </p>
-                <h4>Price: RM <%= service.getServicePrice() %></h4>
-            </div>
+    %>
+    <div class="package-card">
+        
+        <h3><%= service.getServiceName() %></h3>
+        <div class="package-pricing">
+            <h4>Description:</h4>
+            <p>
+                <%
+                    String description = service.getServiceDescription();
+                    String[] descriptionItems = description.split(",");
+                    for (String item : descriptionItems) {
+                        out.print(item.trim() + "<br>");
+                    }
+                %>
+            </p>
         </div>
-        <%
+        <div class="package-pricing">
+            <h4>Price: RM <%= service.getServicePrice() %></h4>
+        </div>
+        
+    </div>
+    <%
             }
         }
-        %>
-    </div>
-</header>
+    %>
+</div>
 
+<!-- Footer -->
 <footer class="footer">
     <div class="main_container footer_container">
         <div class="footer_item">
             <a href="#" class="footer_logo">
                 <img class="footer_logo" src="images/nikkospacelogo.png" alt="">
             </a>
-            <div class="footer_p">Your Pets is Our Priority</div>
+            <div class="footer_p">Your Pets are Our Priority</div>
         </div>
         <div class="footer_item">
             <h3 class="footer_item_title">Reach Us</h3>

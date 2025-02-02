@@ -5,7 +5,7 @@
     <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="css/LoginStyle.css">
+    <link rel="stylesheet" href="css/CustomerViewProfile.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -19,21 +19,21 @@
    </div> 
   </div> 
   <ul class="nav__links" id="nav-links">
-   <li><a href="AppointmentController?action=listAppointment">Appointment</a></li>
+   <li><a href="AppointmentController?action=getPendingAppointments">Appointments</a></li>
    <li><a href="CustomerController?action=listCustomer">Customer</a></li>
-   <li><a href="ServiceController?action=listServices">Service</a></li> 
-   <li><a href="StaffAdminController?action=listStaff">Staff</a></li> 
+   <li><a href="ServiceController?action=listServices">Service</a></li>
+              <li><a href="StaffAdminController?action=listStaff">Staff</a></li>
    <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-   <li><a href="StaffAdminController?action=logout">Sign out</a></li> 
+   <li><a href="StaffAdminController?action=logout">Logout</a></li> 
   </ul> 
  </nav>
 
-    <!-- Main Content -->
+<header id="home">
    <div class="form-wrapper">
     <div class="header__container">
         <h2>Welcome, <%= session.getAttribute("username") %>!</h2>
         <h3>Your Profile</h3>
-        <table style="width: 100%; text-align: left; border-collapse: collapse; margin-top: 1rem;">
+        <table class="profile-table">
             <tr>
                 <th style="padding: 10px;">Username:</th>
                 <td style="padding: 10px;"><%= session.getAttribute("username") %></td>
@@ -55,16 +55,22 @@
                 <td style="padding: 10px;"><%= session.getAttribute("gender") %></td>
             </tr>
         </table>
-        <div style="margin-top: 1.5rem; text-align: center;">
+        <div class="button-group">
+        <div style="margin-top: 1.5rem;text-align:center">
             <form action="StaffAdminController" method="POST">
     <input type="hidden" name="action" value="loadUpdateProfile">
-    <button type="submit" class="btn">Update Profile</button>
+    <button type="submit" class="btn update">Update Profile</button>
 </form>
-            <!-- Link to Logout -->
-            <a href="StaffAdminController?action=logout" class="btn">Logout</a>
+ <br>
+            <form action="StaffAdminController" method="POST">
+    <input type="hidden" name="action" value="logout">
+    <button type="submit" class="btn logout">Logout</button>
+</form>
+        </div>
         </div>
     </div>
 </div>
+</header>
 
 
     <!-- Footer -->

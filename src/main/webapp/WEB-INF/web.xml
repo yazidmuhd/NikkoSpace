@@ -99,4 +99,24 @@
     <servlet-name>AppointmentController</servlet-name>
     <url-pattern>/AppointmentController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResultController</display-name>
+    <servlet-name>ResultController</servlet-name>
+    <servlet-class>StaffAdmin.controller.ResultController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResultController</servlet-name>
+    <url-pattern>/ResultController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>StatusController</display-name>
+    <servlet-name>StatusController</servlet-name>
+    <servlet-class>StaffAdmin.controller.StatusController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StatusController</servlet-name>
+    <url-pattern>/StatusController</url-pattern>
+  </servlet-mapping>
 </web-app>

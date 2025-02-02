@@ -18,12 +18,12 @@
         </div>
     </div>
     <ul class="nav__links" id="nav-links">
-        <li><a href="AppointmentController?action=listAppointment">Appointment</a></li>
+   <li><a href="AppointmentController?action=getPendingAppointments">Appointments</a></li>
    <li><a href="CustomerController?action=listCustomer">Customer</a></li>
    <li><a href="ServiceController?action=listServices">Service</a></li> 
    <li><a href="StaffAdminController?action=listStaff">Staff</a></li>  
    <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-   <li><a href="StaffAdminController?action=logout">Sign out</a></li> 
+   <li><a href="StaffAdminController?action=logout">Logout</a></li> 
     </ul>
 </nav>
 

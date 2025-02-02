@@ -5,7 +5,7 @@
     <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="css/LoginStyle.css">
+    <link rel="stylesheet" href="css/CustomerViewProfile.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -21,20 +21,20 @@
   <ul class="nav__links" id="nav-links"> 
    <li><a href="CustomerIndexHome.jsp">Home</a></li>
             <li><a href="PetController?action=getPetList">Pet</a></li>
-            <li><a href="AppointmentController?action=showCreateAppointmentPage">Appointment</a></li>
-           <li><a href="CustomerServiceController?action=listServices">Service</a></li>
+<li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
+            <li><a href="CustomerServiceController?action=listServices">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
 
   </ul> 
  </nav>
 
-    <!-- Main Content -->
+<header id="home">
     <div class="form-wrapper">
         <div class="header__container">
             <h2>Welcome, <%= request.getAttribute("username") %>!</h2>
 <h3>Your Profile</h3>
-<table>
+<table class="profile-table">
     <tr>
         <th>Username:</th>
         <td><%= request.getAttribute("username") %></td>
@@ -55,22 +55,24 @@
         <th>Gender:</th>
         <td><%= request.getAttribute("gender") %></td>
     </tr>
-</table>
+</table><div class="button-group">
 
             <div style="margin-top: 1.5rem;text-align:center">
                 <form action="CustomerController" method="POST">
     <input type="hidden" name="action" value="loadUpdateProfile">
-    <button type="submit" class="btn">Update Profile</button>
+    <button type="submit" class="btn update">Update Profile</button>
 </form>
                 <br>
                 <br>
                 <form action="CustomerController" method="POST">
     <input type="hidden" name="action" value="logout">
-    <button type="submit" class="btn">Logout</button>
+    <button type="submit" class="btn logout">Logout</button>
 </form>
+</div>
             </div>
         </div>
     </div>
+    </header>
 
     <!-- Footer -->
     <footer class="footer">

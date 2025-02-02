@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
 <%@ page import="StaffAdmin.model.Service" %>
 
@@ -8,9 +7,10 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Service Page</title>
-    <link rel="stylesheet" href="css/listServiceStyle.css">
+    <link rel="stylesheet" href="css/StaffViewService.css">
 </head>
 <body>
+<!-- Navigation -->
 <nav>
     <div class="nav__header">
         <div class="nav__logo">
@@ -21,82 +21,84 @@
         </div>
     </div>
     <ul class="nav__links" id="nav-links">
-        <li><a href="AppointmentController?action=listAppointment">Appointment</a></li>
-   <li><a href="CustomerController?action=listCustomer">Customer</a></li>
-   <li><a href="ServiceController?action=listServices">Service</a></li> 
-   <li><a href="StaffAdminController?action=listStaff">Staff</a></li> 
-   <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-   <li><a href="StaffAdminController?action=logout">Sign out</a></li> 
+   <li><a href="AppointmentController?action=getPendingAppointments">Appointments</a></li>
+        <li><a href="CustomerController?action=listCustomer">Customer</a></li>
+        <li><a href="ServiceController?action=listServices">Service</a></li>
+           <li><a href="StaffAdminController?action=listStaff">Staff</a></li>
+        <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
+        <li><a href="StaffAdminController?action=logout">Logout</a></li>
     </ul>
 </nav>
 
+<!-- Header -->
 <header id="home">
     <div class="section__container header__container">
         <div class="header__content">
-            <h1>List of Services</h1>
+            <h1 style="text-align: center;">List of Services</h1>
         </div>
-    </div>
-
-    <div class="service-container">
-        <%
-    // Retrieve the serviceList from the request attribute
-    List<Service> services = (List<Service>) request.getAttribute("serviceList");
-
-    if (services == null || services.isEmpty()) {
-%>
-        <h2 style="text-align: center; color: #666;">No services yet, please add a service by clicking the button below.</h2>
-<%
-    } else {
-        for (Service service : services) {
-%>
-        <div class="service">
-            <div class="service-details">
-                <h3><%= service.getServiceName() %></h3>
-                <p>
-                    <% 
-                        String description = service.getServiceDescription();
-                        String[] descriptionItems = description.split(",");
-                        for (int i = 0; i < descriptionItems.length; i++) {
-                            out.print(descriptionItems[i]);
-                            if (i < descriptionItems.length - 1) {
-                                out.print("<br>"); 
-                            }
-                        }
-                    %>
-                </p>
-                <h4>Price: RM <%= service.getServicePrice() %></h4>
-            </div>
-            <form action="ServiceController" method="get">
-    <input type="hidden" name="action" value="updateServiceForm">
-    <input type="hidden" name="serviceId" value="<%= service.getServiceId() %>">
-    <button class="action-button" type="submit">Edit</button>
-</form>
-
-
-        </div>
-<%
-        }
-    }
-%>
-    </div>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <form action="ServiceController" method="get">
-            <input type="hidden" name="action" value="createServiceForm">
-            <button class="action-button" type="submit">
-                Add New Service
-            </button>
-        </form>
     </div>
 </header>
 
+<!-- Service List Section -->
+<div class="packages-container">
+    <%
+        // Retrieve the serviceList from the request attribute
+        List<Service> services = (List<Service>) request.getAttribute("serviceList");
+
+        if (services == null || services.isEmpty()) {
+    %>
+    <h2 style="text-align: center; color: #666;">No services yet, please add a service by clicking the button below.</h2>
+    <%
+        } else {
+            for (Service service : services) {
+    %>
+    <div class="package-card">
+        
+        <h3><%= service.getServiceName() %></h3>
+        <div class="package-pricing">
+            <h4>Description:</h4>
+            <p>
+                <%
+                    String description = service.getServiceDescription();
+                    String[] descriptionItems = description.split(",");
+                    for (String item : descriptionItems) {
+                        out.print(item.trim() + "<br>");
+                    }
+                %>
+            </p>
+        </div>
+        <div class="package-pricing">
+            <h4>Price: RM <%= service.getServicePrice() %></h4>
+        </div>
+        <div class="update-button-container">
+            <form action="ServiceController" method="get">
+                <input type="hidden" name="action" value="updateServiceForm">
+                <input type="hidden" name="serviceId" value="<%= service.getServiceId() %>">
+                <button class="update-button" type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+    <%
+            }
+        }
+    %>
+</div>
+
+<div class="add-new-service-container">
+    <form action="ServiceController" method="get">
+        <input type="hidden" name="action" value="createServiceForm">
+        <button class="update-button" type="submit">Add New Service</button>
+    </form>
+</div>
+
+<!-- Footer -->
 <footer class="footer">
     <div class="main_container footer_container">
         <div class="footer_item">
             <a href="#" class="footer_logo">
                 <img class="footer_logo" src="images/nikkospacelogo.png" alt="">
             </a>
-            <div class="footer_p">Your Pets is Our Priority</div>
+            <div class="footer_p">Your Pets are Our Priority</div>
         </div>
         <div class="footer_item">
             <h3 class="footer_item_title">Reach Us</h3>

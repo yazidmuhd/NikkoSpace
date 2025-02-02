@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Profile</title>
-    <link rel="stylesheet" href="css/LoginStyle.css">
+    <link rel="stylesheet" href="css/CustomerUpdateProfile.css">
     <script>
         function validatePasswords() {
             const newPassword = document.getElementById("password").value.trim();
@@ -16,6 +16,70 @@
             }
             return true;
         }
+        
+        function isValidPassword(password) {
+        	var regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        	return regex.test(password);
+        }
+
+        function checkPasswordStrength() {
+        	var password = document.getElementById("password").value;
+        	var strengthMeter = document.getElementById("passwordStrength");
+        	var strengthText = document.getElementById("strengthText");
+        	var suggestionText = document.getElementById("suggestionText");
+
+        	if (password.length === 0) {
+        		strengthMeter.style.width = "0%";
+        		strengthText.textContent = "";
+        		suggestionText.textContent = "";
+        		return;
+        	}
+
+        	var strength = 0;
+        	var suggestions = [];
+
+        	if (password.length >= 8) {
+        		strength += 1;
+        	} else {
+        		suggestions.push("Use at least 8 characters.");
+        	}
+
+        	if (/[A-Z]/.test(password)) {
+        		strength += 1;
+        	} else {
+        		suggestions.push("Add an uppercase letter.");
+        	}
+
+        	if (/\d/.test(password)) {
+        		strength += 1;
+        	} else {
+        		suggestions.push("Include a number.");
+        	}
+
+        	if (/[@$!%*?&]/.test(password)) {
+        		strength += 1;
+        	} else {
+        		suggestions.push("Use a special character (@, $, !, %, *, ?, &).");
+        	}
+
+        	if (strength === 1) {
+        		strengthMeter.style.width = "25%";
+        		strengthMeter.style.backgroundColor = "red";
+        		strengthText.textContent = "Weak";
+        	} else if (strength === 2) {
+        		strengthMeter.style.width = "50%";
+        		strengthMeter.style.backgroundColor = "orange";
+        		strengthText.textContent = "Medium";
+        	} else if (strength >= 3) {
+        		strengthMeter.style.width = "100%";
+        		strengthMeter.style.backgroundColor = "green";
+        		strengthText.textContent = "Strong";
+        	}
+
+        	suggestionText.textContent = strength < 3 ? "Suggestions: "
+        			+ suggestions.join(" ") : "";
+        }
+        </script>
     </script>
 </head>
 <body>
@@ -29,11 +93,11 @@
             </div>
         </div>
         <ul class="nav__links" id="nav-links">
-            <li><a href="AppointmentController?action=listAppointment">Appointment</a></li>
+   <li><a href="AppointmentController?action=getPendingAppointments">Appointments</a></li>
    <li><a href="CustomerController?action=listCustomer">Customer</a></li>
    <li><a href="ServiceController?action=listServices">Service</a></li>
    <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-   <li><a href="StaffAdminController?action=logout">Sign out</a></li>
+   <li><a href="StaffAdminController?action=logout">Logout</a></li>
         </ul>
     </nav>
 
@@ -58,17 +122,23 @@
                 <input type="date" name="birthDate" id="birthDate" value="<%= request.getAttribute("birthDate") %>" required />
                 
                 <label for="gender">Gender:</label>
-                <input list="gender-options" id="gender" name="gender" placeholder="Select Gender" value="<%= request.getAttribute("gender") %>" required>
-                <datalist id="gender-options">
-                    <option value="Male"></option>
-                    <option value="Female"></option>
-                </datalist>
+<select id="gender" name="gender" style="padding: 15px 18px; font-size: 1rem; border: none; border-radius: 10px; background: linear-gradient(to right, #e9ecef, #ffffff); box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1), inset -1px -1px 5px rgba(255, 255, 255, 0.7); color: #333; appearance: none;">
+    <option value="Male" <%= "Male".equals(request.getAttribute("gender")) ? "selected" : "" %>>Male</option>
+    <option value="Female" <%= "Female".equals(request.getAttribute("gender")) ? "selected" : "" %>>Female</option>
+</select>
                 
-                <label for="password">New Password:</label>
-                <input type="password" name="password" id="password" placeholder="Enter new password" />
-                
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm new password" />
+                <label for="password">New Password:</label> <input type="password"
+					name="password" id="password" placeholder="Enter new password"
+					onkeyup="checkPasswordStrength()"  />
+				<div class="password-strength-container">
+					<div id="passwordStrength" class="password-strength"></div>
+					<span id="strengthText"></span>
+				</div>
+				<p id="suggestionText" class="suggestion-text"></p>
+
+				<label for="confirmPassword">Confirm Password:</label> <input
+					type="password" name="confirmPassword" id="confirmPassword"
+					placeholder="Confirm new password" /><br>
                 
                 <button type="submit" class="btn-primary">Update Profile</button>
             </form>
@@ -81,7 +151,7 @@
             
             <form action="StaffAdminController" method="POST">
                 <input type="hidden" name="action" value="getProfile">
-                <button type="submit" class="btn-primary">Back to Profile</button>
+                <button type="submit" class="btn btn-cancel">Back to Profile</button>
             </form>
         </div>
     </div>

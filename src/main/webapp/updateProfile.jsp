@@ -1,13 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<script>
+function isValidPassword(password) {
+	var regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+	return regex.test(password);
+}
+
+function checkPasswordStrength() {
+	var password = document.getElementById("password").value;
+	var strengthMeter = document.getElementById("passwordStrength");
+	var strengthText = document.getElementById("strengthText");
+	var suggestionText = document.getElementById("suggestionText");
+
+	if (password.length === 0) {
+		strengthMeter.style.width = "0%";
+		strengthText.textContent = "";
+		suggestionText.textContent = "";
+		return;
+	}
+
+	var strength = 0;
+	var suggestions = [];
+
+	if (password.length >= 8) {
+		strength += 1;
+	} else {
+		suggestions.push("Use at least 8 characters.");
+	}
+
+	if (/[A-Z]/.test(password)) {
+		strength += 1;
+	} else {
+		suggestions.push("Add an uppercase letter.");
+	}
+
+	if (/\d/.test(password)) {
+		strength += 1;
+	} else {
+		suggestions.push("Include a number.");
+	}
+
+	if (/[@$!%*?&]/.test(password)) {
+		strength += 1;
+	} else {
+		suggestions.push("Use a special character (@, $, !, %, *, ?, &).");
+	}
+
+	if (strength === 1) {
+		strengthMeter.style.width = "25%";
+		strengthMeter.style.backgroundColor = "red";
+		strengthText.textContent = "Weak";
+	} else if (strength === 2) {
+		strengthMeter.style.width = "50%";
+		strengthMeter.style.backgroundColor = "orange";
+		strengthText.textContent = "Medium";
+	} else if (strength >= 3) {
+		strengthMeter.style.width = "100%";
+		strengthMeter.style.backgroundColor = "green";
+		strengthText.textContent = "Strong";
+	}
+
+	suggestionText.textContent = strength < 3 ? "Suggestions: "
+			+ suggestions.join(" ") : "";
+}
+</script>
 <head>
     <meta charset="ISO-8859-1">
     <title>Update Profile</title>
-    <link rel="stylesheet" href="css/LoginStyle.css">
+    <link rel="stylesheet" href="css/CustomerUpdateProfile.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav> 
         <div class="nav__header"> 
             <div class="nav__logo"> 
@@ -23,7 +86,7 @@
             <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
             <li><a href="ServiceController?action=getServiceList">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
         </ul> 
     </nav>
 
@@ -31,9 +94,9 @@
 <div class="form-wrapper">
     <div class="header__container">
         <h2>Update Your Profile</h2>
-        <form action="CustomerController" method="POST">
-            <input type="hidden" name="action" value="updateProfile">
-            <input type="hidden" name="user_Id" value="<%= request.getAttribute("user_Id") %>" />
+        <form action="CustomerController" method="post">
+    <input type="hidden" name="action" value="updateProfile">
+    <input type="hidden" name="custID" value="<%= session.getAttribute("custID") %>">
 
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" value="<%= request.getAttribute("username") %>" required />
@@ -53,13 +116,16 @@
     <option value="Female" <%= "Female".equals(request.getAttribute("gender")) ? "selected" : "" %>>Female</option>
 </select>
 
+			<label for="password">Password:</label>
+                    <input type="password" id="password" name="password" onkeyup="checkPasswordStrength()"  >
+                    <div class="password-strength-container">
+						<div id="passwordStrength" class="password-strength"></div>
+						<span id="strengthText"></span>
+					</div>
+					<p id="suggestionText" class="suggestion-text"></p>
 
-
-            <label for="password">New Password:</label>
-            <input type="password" name="password" id="password" placeholder="Enter new password" />
-
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm new password" />
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" >
 
             <button type="submit" class="btn-primary">Update Profile</button>
             <button type="button" class="btn-cancel" onclick="window.location.href='CustomerController?action=getProfile'">Cancel</button>

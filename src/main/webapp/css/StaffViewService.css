@@ -334,6 +334,7 @@ caption {
     gap: 20px;
     flex-wrap: wrap;
     background-color: #dcd7f8;
+    padding-bottom : 50px;
 }
 
 /* Package Card Styling */

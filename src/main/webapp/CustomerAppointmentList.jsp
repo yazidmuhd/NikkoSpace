@@ -25,9 +25,9 @@
             <li><a href="CustomerIndexHome.jsp">Home</a></li>
             <li><a href="PetController?action=getPetList">Pet</a></li>
             <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
-            <li><a href="ServiceController?action=getServiceList">Service</a></li>
+            <li><a href="CustomerServiceController?action=listServices">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
         </ul>
     </nav>
 
@@ -56,55 +56,67 @@
                             </thead>
                             <tbody>
                                 <%
-                                    // Retrieve appointmentList from the request attribute
-                                    List<Appointment> appointments = (List<Appointment>) request.getAttribute("appointmentList");
+    List<Appointment> appointments = (List<Appointment>) request.getAttribute("appointmentList");
 
-                                    if (appointments == null || appointments.isEmpty()) {
-                                %>
-                                    <tr>
-                                        <td colspan="8" style="text-align: center;">No appointments found. Please create a new appointment.</td>
-                                    </tr>
-                                <%
-                                    } else {
-                                        for (Appointment appointment : appointments) {
-                                %>
-                                    <tr>
-                                        <td><%= appointment.getAppId() %></td>
-                                        <td><%= appointment.getPet().getPetName() %></td> 
-                                        <td><%= appointment.getService().getServiceName() %></td>
-                                        <td><%= appointment.getAppDate() %></td>
-                                        <td><%= appointment.getAppTime() %></td>
-                                        <td><%= appointment.getAppRemark() %></td>
-                                        <td><%= appointment.getStatus() %></td>
-                                        <td>
-                                            <form action="AppointmentController" method="get" style="display: inline;">
-                                                <input type="hidden" name="action" value="viewAppointmentDetails">
-                                                <input type="hidden" name="appId" value="<%= appointment.getAppId() %>">
-                                                <button type="submit" class="btn-view">View</button>
-                                            </form>
-                                            <% if ("Pending".equalsIgnoreCase(appointment.getStatus())) { %>
-                                                <form action="AppointmentController" method="get" style="display: inline;">
-                                                    <input type="hidden" name="action" value="showEditAppointmentPage">
-                                                    <input type="hidden" name="appId" value="<%= appointment.getAppId() %>">
-                                                    <button type="submit" class="btn-update">Update</button>
-                                                </form>
-                                            <% } %>
-                                        </td>
-                                    </tr>
-                                <%
-                                        }
-                                    }
-                                %>
+    if (appointments == null || appointments.isEmpty()) {
+%>
+<tr>
+    <td colspan="8" style="text-align: center;">No appointments found. Please create a new appointment.</td>
+</tr>
+<%
+    } else {
+        for (Appointment appointment : appointments) {
+%>
+<tr>
+    <td><%= appointment.getAppId() %></td>
+    <td><%= appointment.getPet() != null ? appointment.getPet().getPetName() : "No Pet" %></td>
+    <td><%= appointment.getService() != null ? appointment.getService().getServiceName() : "No Service" %></td>
+    <td><%= appointment.getAppDate() %></td>
+    <td><%= appointment.getAppTime() %></td>
+    <td><%= appointment.getAppRemark() %></td>
+    <td><%= appointment.getStatus() != null ? appointment.getStatus() : "No Status" %></td>
+    <td >
+        <!-- View Button -->
+        <form action="AppointmentController" method="get" style="display: inline;">
+            <input type="hidden" name="action" value="viewAppointmentDetails">
+            <input type="hidden" name="appId" value="<%= appointment.getAppId() %>">
+            <button type="submit" class="btn-view">View</button>
+        </form>
+        
+        <!-- Update Button (if status is Pending) -->
+        <% if ("Pending".equalsIgnoreCase(appointment.getStatus())) { %>
+            <form action="AppointmentController" method="get" style="display: inline;">
+                <input type="hidden" name="action" value="showEditAppointmentPage">
+                <input type="hidden" name="appId" value="<%= appointment.getAppId() %>">
+                <button type="submit" class="btn-update">Update</button>
+            </form>
+        <% } %>
+        
+        <!-- Delete Button -->
+        <form action="AppointmentController" method="post" style="display: inline;">
+            <input type="hidden" name="action" value="deleteAppointment">
+            <input type="hidden" name="appId" value="<%= appointment.getAppId() %>">
+            <button type="submit" class="btn-cancel">Delete</button>
+        </form>
+        
+        
+    </td>
+</tr>
+<%
+        }
+    }
+%>
                             </tbody>
                         </table>
                     </div>
                 </section>
                 <br />
                 <div class="header__btn">
-                    <button onclick="window.location.href='CustomerCreateAppointment.jsp'">
-                        Add Appointment <span><i class="ri-arrow-right-line"></i></span>
-                    </button>
-                </div>
+    <button onclick="window.location.href='AppointmentController?action=showCreateAppointmentPage'">
+        Add Appointment <span><i class="ri-arrow-right-line"></i></span>
+    </button>
+</div>
+
             </div>
         </div>
     </header>

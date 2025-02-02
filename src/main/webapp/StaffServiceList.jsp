@@ -21,11 +21,11 @@
         </div>
     </div>
     <ul class="nav__links" id="nav-links">
-        <li><a href="AppointmentController?action=listAppointment">Appointment</a></li>
+   <li><a href="AppointmentController?action=getPendingAppointments">Appointments</a></li>
         <li><a href="CustomerController?action=listCustomer">Customer</a></li>
         <li><a href="ServiceController?action=listServices">Service</a></li>
         <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-        <li><a href="StaffAdminController?action=logout">Sign out</a></li>
+        <li><a href="StaffAdminController?action=logout">Logout</a></li>
     </ul>
 </nav>
 
@@ -83,11 +83,10 @@
     %>
 </div>
 
-<!-- Add New Service Button -->
 <div class="add-new-service-container">
     <form action="ServiceController" method="get">
         <input type="hidden" name="action" value="createServiceForm">
-        <button class="add-new-service-button" type="submit">Add New Service</button>
+        <button class="update-button" type="submit">Add New Service</button>
     </form>
 </div>
 

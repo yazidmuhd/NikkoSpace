@@ -24,7 +24,7 @@
             <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
             <li><a href="CustomerServiceController?action=listServices">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
         </ul>
     </nav>
 
@@ -39,10 +39,7 @@
                     <form action="PetController" method="post">
     <input type="hidden" name="action" value="updatePet">
     <input type="hidden" name="petID" value="<%= request.getAttribute("petID") %>">
-                        <div class="form-group">
-                            <label for="petImage">Change Pet Picture:</label>
-                            <input type="file" id="petImage" name="petImage" accept="image/*">
-                        </div>
+                        
                         <div class="form-group">
                             <label for="petName">Pet Name:</label>
     						<input type="text" id="petName" name="petName" value="<%= request.getAttribute("petName") %>" required>

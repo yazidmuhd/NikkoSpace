@@ -1,5 +1,8 @@
 @charset "ISO-8859-1";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import
+	url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap")
+	;
 
 :root {
   --primary-color: #dcd7f8;
@@ -125,223 +128,87 @@ nav {
   }
 }
 
+
 /* Footer */
 .footer {
-  background: linear-gradient(darkslategray, rgb(55, 56, 56));
+	background: linear-gradient(darkslategray, rgb(55, 56, 56));
 }
 
 .footer_container {
-  text-align: center;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  grid-gap: 3rem;
-  padding: 2rem 0rem;
-  color: white;
+	text-align: center;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+	grid-gap: 3rem;
+	padding: 2rem 0rem;
+	color: white;
 }
 
 .footer_logo {
-  margin-left: auto;
-  max-width: 70%;
-  font-size: 3rem;
-  color: white;
-  font-weight: 700;
+	margin-left: auto;
+	max-width: 70%;
+	font-size: 3rem;
+	color: white;
+	font-weight: 700;
 }
 
 .footer_p {
-  margin-top: 1.2rem;
-  margin-left: 30%;
-  color: whitesmoke;
+	margin-top: 1.2rem;
+	margin-left: 30%;
+	color: whitesmoke;
 }
 
 .footer_list_item {
-  margin: 0.5rem 0rem;
-  color: whitesmoke;
+	margin: 0.5rem 0rem;
+	color: whitesmoke;
 }
 
 .footer_bottom_container {
-  width: 100%;
-  text-align: center;
+	width: 100%;
+	text-align: center;
 }
 
 .footer_copy {
-  color: whitesmoke;
-  padding: 1.5rem 0rem;
+	color: whitesmoke;
+	padding: 1.5rem 0rem;
 }
 
 /* Header */
 header {
-  position: relative;
-  isolation: isolate;
-  padding-top: 0;
-  background: linear-gradient(to right, #dcd6f7, #ebe6ff); /* Subtle gradient effect */
-  color: #333;
+	position: relative;
+	isolation: isolate;
+	padding-top: 0;
+	background: linear-gradient(to right, #dcd6f7, #ebe6ff);
+	/* Subtle gradient effect */
+	color: #333;
 }
 
 .header__container {
-  align-items: center;
-  max-width: var(--max-width);
-  padding: 5rem 1rem;
-  margin: auto;
+	align-items: center;
+	max-width: var(- -max-width);
+	padding: 5rem 1rem;
+	margin: auto;
 }
 
 .header__content h1 {
-  margin-bottom: 1rem;
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 4.5rem;
-  color: var(--text-dark);
-  text-align: center;
+	margin-bottom: 1rem;
+	font-size: 3.5rem;
+	font-weight: 700;
+	line-height: 4.5rem;
+	color: var(- -text-dark);
+	text-align: center;
 }
 
 .header__content h2 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  text-align: center;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: var(- -text-dark);
+	text-align: center;
 }
 
 .header__btn button {
-  padding-block: 0.5rem;
-  padding-inline: 1.5rem 0.5rem;
-  margin-inline: auto;
-  outline: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  color: var(--text-dark);
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5rem;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.header__btn button span {
-  padding: 5px 7px;
-  font-size: 1.5rem;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 100%;
-}
-
-.header__btn button:hover {
-  color: var(--white);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.header__btn button:hover span {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Center the table on the page */
-.appointment-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Glassmorphism Table Styling */
-.appointment-list table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.15); /* Transparent background */
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-/* Table Header */
-.appointment-list table thead {
-    background: rgba(63, 81, 181, 0.8); /* Deep Blue */
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 1em;
-}
-
-.appointment-list table thead th {
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-/* Table Rows */
-.appointment-list table tbody {
-    background: rgba(255, 255, 255, 0.3); /* Frosted white */
-}
-
-.appointment-list table tbody tr {
-    transition: all 0.3s ease-in-out;
-}
-
-.appointment-list table tbody tr:hover {
-    background: rgba(63, 81, 181, 0.15); /* Light Blue on hover */
-    transform: scale(1.02);
-}
-
-.appointment-list table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.25); /* Slightly different shade for alternate rows */
-}
-
-.appointment-list table tbody td {
-    padding: 15px;
-    font-size: 0.95em;
-    text-align: center;
-    color: #333;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-/* Buttons */
-.btn-view, .btn-update {
-    padding: 8px 15px;
-    font-size: 0.9em;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.btn-view {
-    background: linear-gradient(145deg, #4caf50, #43a047); /* Green */
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-}
-
-.btn-view:hover {
-    background: linear-gradient(145deg, #43a047, #4caf50);
-}
-
-.btn-update {
-    background: linear-gradient(145deg, #ff9800, #fb8c00); /* Orange */
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-}
-
-.btn-update:hover {
-    background: linear-gradient(145deg, #fb8c00, #ff9800);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .appointment-list table {
-        width: 95%; /* Adjust table width on smaller screens */
-    }
-
-    .appointment-list table thead th,
-    .appointment-list table tbody td {
-        font-size: 0.85em;
-        padding: 10px;
-    }
-}
-.header__btn button {
-	padding-block: 0.5rem;
+	padding-block: 0.8rem;
 	padding-inline: 1.5rem 0.5rem;
 	margin-inline: auto;
 	outline: none;
@@ -350,8 +217,8 @@ header {
 	align-items: center;
 	gap: 10px;
 	font-size: 1rem;
-	color: var(- -text-dark);
-	background-color: rgba(0, 0, 0, 0.1);
+	color: var(- -white);
+	background-color: rgba(0, 0, 0, 0.4);
 	border-radius: 5rem;
 	transition: 0.3s;
 	cursor: pointer;
@@ -360,15 +227,378 @@ header {
 .header__btn button span {
 	padding: 5px 7px;
 	font-size: 1.5rem;
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.4);
 	border-radius: 100%;
 }
 
 .header__btn button:hover {
-	color: var(- -white);
-	background-color: rgba(0, 0, 0, 0.4);
+	color: var(- -text-dark);
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .header__btn button:hover span {
 	background-color: rgba(0, 0, 0, 0.4);
 }
+
+/* Center the table on the page */
+.appointment-list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Arial', sans-serif;
+}
+
+/* Glassmorphism Table Styling */
+.appointment-list table {
+	width: 80%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	border-radius: 15px;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.15); /* Transparent background */
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(10px); /* Frosted glass effect */
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Table Header */
+.appointment-list table thead {
+	background: rgba(63, 81, 181, 0.8); /* Deep Blue */
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1em;
+}
+
+.appointment-list table thead th {
+	padding: 15px;
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Table Rows */
+.appointment-list table tbody {
+	background: rgba(255, 255, 255, 0.3); /* Frosted white */
+}
+
+.appointment-list table tbody tr {
+	transition: all 0.3s ease-in-out;
+}
+
+.appointment-list table tbody tr:hover {
+	background: rgba(63, 81, 181, 0.15); /* Light Blue on hover */
+	transform: scale(1.02);
+}
+
+.appointment-list table tbody tr:nth-child(even) {
+	background: rgba(255, 255, 255, 0.25);
+	/* Slightly different shade for alternate rows */
+}
+
+.appointment-list table tbody td {
+	padding: 15px;
+	font-size: 0.95em;
+	text-align: center;
+	color: #333;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Buttons */
+.btn-view, .btn-update {
+	padding: 8px 15px;
+	font-size: 0.9em;
+	border-radius: 25px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	color: #fff;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-view {
+	background: linear-gradient(145deg, #4caf50, #43a047); /* Green */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-view:hover {
+	background: linear-gradient(145deg, #43a047, #4caf50);
+}
+
+.btn-update {
+	background: linear-gradient(145deg, #ff9800, #fb8c00); /* Orange */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-update:hover {
+	background: linear-gradient(145deg, #fb8c00, #ff9800);
+}
+
+/* Add spacing between action buttons */
+td form,
+td button {
+    margin: 5px; /* Adds spacing between buttons */
+    display: inline-block; /* Ensures buttons remain in a row */
+}
+
+
+/* Responsive Design */
+@media ( max-width : 768px) {
+	.appointment-list table {
+		width: 95%; /* Adjust table width on smaller screens */
+	}
+	.appointment-list table thead th, .appointment-list table tbody td {
+		font-size: 0.85em;
+		padding: 10px;
+	}
+	    td {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+        align-items: center;
+    }
+
+    td form,
+    td button {
+        width: 100%; /* Full-width buttons for better touch interaction */
+        text-align: center;
+    }
+}
+
+.header__btn button {
+	padding-block: 0.8rem;
+	padding-inline: 1.5rem 0.5rem;
+	margin-inline: auto;
+	outline: none;
+	border: none;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 1rem;
+	color: var(--white);
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 5rem;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.header__btn button span {
+	padding: 5px 7px;
+	font-size: 1.5rem;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 100%;
+}
+
+.header__btn button:hover {
+	color: var(--text-dark);
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header__btn button:hover span {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Cancel Button */
+.btn-cancel {
+	padding: 8px 15px;
+	font-size: 0.9em;
+	border-radius: 25px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	color: #fff;
+	background: linear-gradient(145deg, #f44336, #e53935);
+	/* Red gradient */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cancel:hover {
+	background: linear-gradient(145deg, #e53935, #f44336);
+	/* Darker red on hover */
+}
+/* Disabled Cancel Button Styling */
+.btn-cancel.disabled {
+    background: #cccccc; /* Gray background for disabled state */
+    cursor: not-allowed; /* Show "not-allowed" cursor */
+    box-shadow: none;
+    color: #666666; /* Light gray text */
+}
+
+
+
+/* Disabled Buttons (Optional, if needed) */
+.btn-accept.disabled, .btn-reject.disabled {
+    background: #cccccc; /* Gray background for disabled state */
+    cursor: not-allowed; /* Show "not-allowed" cursor */
+    box-shadow: none;
+    color: #666666; /* Light gray text */
+}
+
+/* Pending Button */
+.btn-pending {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #f9a825, #f57f17); /* Yellow gradient */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-pending:hover {
+    background: linear-gradient(145deg, #f57f17, #f9a825); /* Darker yellow */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+/* In Progress Button */
+.btn-in-progress {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #2196f3, #1976d2); /* Blue gradient */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-in-progress:hover {
+    background: linear-gradient(145deg, #1976d2, #2196f3); /* Darker blue */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+/* Complete/Rejected Button */
+.btn-complete {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #4caf50, #388e3c); /* Green gradient */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-complete:hover {
+    background: linear-gradient(145deg, #388e3c, #4caf50); /* Darker green */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px); /* Subtle lift */
+}
+/* Delete Button */
+.btn-delete {
+    padding: 8px 15px; /* Match padding with btn-view */
+    font-size: 0.9em; /* Match font size with btn-view */
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #f44336, #e53935); /* Red gradient */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Match box-shadow with btn-view */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-delete:hover {
+    background: linear-gradient(145deg, #e53935, #f44336); /* Darker red on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Subtle hover shadow */
+}
+
+/* In Progress Button */
+.btn-rejected {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #f44336, #e53935); /* Red gradient */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Match box-shadow with btn-view */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-rejected:hover {
+    background: linear-gradient(145deg, #e53935, #f44336); /* Darker red on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Subtle hover shadow */
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+/* Accept Button */
+.btn-accept {
+    padding: 8px 15px; /* Match padding with btn-view */
+    font-size: 0.9em; /* Match font size with btn-view */
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #4caf50, #43a047); /* Green gradient */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Match box-shadow with btn-view */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-accept:hover {
+    background: linear-gradient(145deg, #43a047, #4caf50); /* Darker green on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Subtle hover shadow */
+    transform: translateY(-2px); /* Lift effect */
+}
+/* Reject Button */
+.btn-reject {
+    padding: 8px 15px; /* Match padding with btn-view */
+    font-size: 0.9em; /* Match font size with btn-view */
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(145deg, #f44336, #e53935); /* Red gradient */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Match box-shadow with btn-view */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-reject:hover {
+    background: linear-gradient(145deg, #e53935, #f44336); /* Darker red on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Subtle hover shadow */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+/* Update Button Styling */
+.btn-update {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+    background: linear-gradient(145deg, #ff9800, #fb8c00); /* Orange Gradient */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-update:hover {
+    background: linear-gradient(145deg, #fb8c00, #ff9800); /* Darker orange on hover */
+}
+
+/* Disabled Update Button */
+.btn-update.disabled {
+    background: #d3d3d3; /* Light gray for disabled state */
+    cursor: not-allowed;
+    box-shadow: none;
+    color: #888; /* Light gray text */
+}
+

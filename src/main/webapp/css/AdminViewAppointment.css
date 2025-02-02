@@ -99,7 +99,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .nav__header {
@@ -140,6 +140,14 @@ nav {
   color: white;
 }
 
+.footer_logo {
+  margin-left: auto;
+  max-width: 70%;
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+}
+
 .footer_p {
   margin-top: 1.2rem;
   margin-left: 30%;
@@ -169,7 +177,6 @@ header {
   background: linear-gradient(to right, #dcd6f7, #ebe6ff); /* Subtle gradient effect */
   color: #333;
 }
-
 
 .header__container {
   align-items: center;
@@ -228,124 +235,106 @@ header {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Form Container Styling */
-.form-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 2.5rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.form-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.form-group {
-  margin-bottom: 1.6rem;
-}
-
-.form-group label {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--text-dark);
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background-color: #f7f7f7;
-  outline: none;
-  transition: all 0.3s ease-in-out;
-}
-
-.form-group input:focus {
-  border-color: var(--primary-color);
-  background-color: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Align buttons in the center of the form */
-.button-container {
+/* Table Styling */
+.container {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  align-items: center; /* Center align buttons */
-  margin-top: 1.5rem; /* Add spacing above the button group */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Update button styles */
-.btn-primary {
-  padding: 1rem 2rem;
-  background: #28a745; /* Green background for Update button */
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 1rem; /* Space below Update button */
-}
-
-.btn-primary:hover {
-  background: #218838; /* Darker green on hover */
-}
-
-/* Cancel button styles */
-.btn-cancel {
-  padding: 0.5rem 1rem; /* Smaller size than Update button */
-  background: #dc3545; /* Red background */
-  color: white; /* White text */
-  font-size: 0.9rem; /* Smaller font size */
-  font-weight: 600;
-  border: none; /* No border */
-  border-radius: 30px; /* Rounded edges */
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.btn-cancel:hover {
-  background: #c82333; /* Darker red on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
-}
-
-.btn-cancel:active {
-  transform: scale(0.95); /* Slight shrink on click */
-  box-shadow: none;
-}
-
-.form-group select {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border: 1px solid #ddd;
+/* Table Styling with 3D Aesthetic */
+/* 3D Soft Pastel Table Design */
+table {
+  width: 90%;
+  margin: 2rem auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  background-color: #f7f7f7;
-  outline: none;
-  transition: all 0.3s ease-in-out;
-  appearance: none; /* Removes default dropdown arrow styling */
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ddd' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem top 50%;
-  background-size: 10px 10px;
+  overflow: hidden;
+  background-color: #fdfdfd;
 }
 
-.form-group select:focus {
-  border-color: var(--primary-color);
-  background-color: #ffffff;
+thead {
+  background-color: #d0e6f7;
+  color: #444;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group select option {
-  padding: 10px;
+th,
+td {
+  padding: 1.2rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+tbody tr {
+  background: #f8faff;
+  transition: all 0.3s ease;
+}
+
+tbody tr:nth-child(even) {
+  background: #f0f6ff;
+}
+
+tbody tr:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  background: #eaf4ff;
+}
+
+td {
+  color: #555;
   font-size: 1rem;
 }
 
+td:first-child {
+  font-weight: bold;
+  color: #6b8eae;
+}
+
+tfoot {
+  background-color: #d0e6f7;
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+tfoot td {
+  padding: 1rem 1.5rem;
+}
+
+caption {
+  margin: 1rem auto;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+}
+
+/* Additional 3D Styling */
+thead th {
+  position: relative;
+}
+
+thead th::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #89d4f7, #a0e1f9);
+  border-radius: 2px;
+}
+
+tbody tr td {
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+}

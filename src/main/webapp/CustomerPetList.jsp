@@ -25,7 +25,7 @@
             <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
             <li><a href="CustomerServiceController?action=listServices">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
         </ul>
     </nav>
 
@@ -87,10 +87,12 @@
                 </table>
             </div>
             <div class="header__btn">
-                <button onclick="window.location.href='CustomerCreatePet.jsp'">
-                    Add Pet <span><i class="ri-arrow-right-line"></i></span>
-                </button>
-            </div>
+    <a href="PetController?action=showPetCreateForm">
+    <button type="button">Add New Pet</button>
+</a>
+
+</div>
+
         </div>
     </div>
 </header>

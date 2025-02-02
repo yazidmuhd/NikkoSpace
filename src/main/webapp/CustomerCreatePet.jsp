@@ -24,7 +24,7 @@
             <li><a href="AppointmentController?action=getAppointmentList">Appointment</a></li>
             <li><a href="CustomerServiceController?action=listServices">Service</a></li>
             <li><a href="CustomerController?action=getProfile">Profile</a></li>
-            <li><a href="CustomerController?action=logout">Sign out</a></li>
+            <li><a href="CustomerController?action=logout">Logout</a></li>
         </ul>
     </nav>
 

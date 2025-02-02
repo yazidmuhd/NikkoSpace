@@ -7,7 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Update Service Details</title>
-<link rel="stylesheet" href="css/updatePackageStyle.css">
+<link rel="stylesheet" href="css/StaffUpdateService.css">
 </head>
 <body>
 <nav>
@@ -24,30 +24,42 @@
    <li><a href="CustomerController?action=listCustomer">Customer</a></li>
    <li><a href="ServiceController?action=listServices">Service</a></li>
    <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-   <li><a href="StaffAdminController?action=logout">Sign out</a></li>
+   <li><a href="StaffAdminController?action=logout">Logout</a></li>
     </ul>
 </nav>
 
 <header id="home">
+<div class="section__container header__container">
+			<div class="header__content">
 <h1 style="text-align: center;">Update Service Details</h1>
 <h2  style="text-align: center;">Detail's of the update service</h2>
-<div class="form-wrapper">
+<div class="form-container">
     <form action="ServiceController" method="post">
     <input type="hidden" name="action" value="updateService">
     <input type="hidden" name="serviceId" value="<%= ((Service) request.getAttribute("service")).getServiceId() %>">
 
+	<div class="form-group">
     <label for="serviceName">Service Name:</label>
     <input type="text" id="serviceName" name="serviceName" value="<%= ((Service) request.getAttribute("service")).getServiceName() %>" required><br><br>
-
+	</div>
+	
+	<div class="form-group">
     <label for="servicePrice">Service Price:</label>
     <input type="text" id="servicePrice" name="servicePrice" value="<%= ((Service) request.getAttribute("service")).getServicePrice() %>" required><br><br>
-
+	</div>
+	
+	<div class="form-group">
     <label for="serviceDescription">Service Description:</label>
     <textarea id="serviceDescription" name="serviceDescription" rows="5" required><%= ((Service) request.getAttribute("service")).getServiceDescription() %></textarea><br><br>
+	</div>
+	
+    <div class="button-container">
+    <button type="submit" class="btn btn-primary">Update Service</button>
+</div>
 
-    <input type="submit" value="Update">
 </form>
-
+</div>
+</div>
 </div>
 <script>
 function validateForm() {

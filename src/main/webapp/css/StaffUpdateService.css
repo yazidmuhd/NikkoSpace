@@ -400,3 +400,31 @@ textarea::placeholder {
   font-style: italic; /* Adds a hint of differentiation for placeholders */
 }
 
+.add-new-service-container {
+    text-align: center; /* Center the button */
+    margin-top: 2rem; /* Add spacing above the button */
+}
+
+.add-new-service-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(145deg, #4caf50, #45a049); /* Green gradient */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-new-service-button:hover {
+    background: linear-gradient(145deg, #45a049, #4caf50); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.add-new-service-button:active {
+    transform: translateY(1px); /* Button press effect */
+    box-shadow: none;
+}

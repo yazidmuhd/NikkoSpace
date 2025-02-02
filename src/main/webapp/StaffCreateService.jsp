@@ -41,7 +41,7 @@
    <li><a href="CustomerController?action=listCustomer">Customer</a></li>
    <li><a href="ServiceController?action=listServices">Service</a></li>
    <li><a href="StaffAdminController?action=getProfile">Profile</a></li>
-   <li><a href="StaffAdminController?action=logout">Sign out</a></li>
+   <li><a href="StaffAdminController?action=logout">Logout</a></li>
 		</ul>
 	</nav>
 
@@ -49,47 +49,33 @@
    <header id="home">
 		<div class="section__container header__container">
 			<div class="header__content">
-				<h1 style="text-align: center;">
-					Add New Service<br />
+				<h1 style="text-align: center;">Add New Service</h1>
+					
 					<h2>Enter details for the new service package</h2>
-				</h1>
+				
 <div class="form-container">
 
         <form action="ServiceController?action=createService" method="post" onsubmit="return validateForm()">
             <div class="form-group">
-            
             <label for="serviceName">Enter Service Name:</label>
             <input type="text" id="serviceName" name="serviceName" placeholder="Enter Service Name" required>
-
+			</div>
+			<div class="form-group">
             <label for="servicePrice">Service Price (RM):</label>
             <input type="number" id="servicePrice" name="servicePrice" placeholder="Enter Service Price" step="0.01" min="0.01" required>
-            
+            </div>
+            <div class="form-group">
             <label for="serviceDescription">Service Description:</label>
             <textarea id="serviceDescription" name="serviceDescription" placeholder="Enter a detailed description of the service" rows="5" required></textarea>
+            </div>
             
-            <button type="submit" class="btn">Submit</button>
+            <div class="button-container">
+							<button type="submit" class="btn btn-primary">Add Service</button>
+							<button type="button" class="btn btn-cancel" onclick="window.location.href='ServiceController?action=listServices'">Cancel</button>
+
+						</div>
         </form>
         
-        <form action="addNewPackageController" method="post"
-						onsubmit="return validateForm()">
-						<div class="form-group">
-							<label for="serviceName">Enter Service Name:</label>
-            <input type="text" id="serviceName" name="serviceName" placeholder="Enter Service Name" required>
-						</div>
-						<div class="form-group">
-							<label for="servicePrice">Service Price (RM):</label>
-            <input type="number" id="servicePrice" name="servicePrice" placeholder="Enter Service Price" step="0.01" min="0.01" required>
-            
-						</div>
-
-						<div class="form-group">
-							<label for="serviceDescription">Service Description:</label>
-            <textarea id="serviceDescription" name="serviceDescription" placeholder="Enter a detailed description of the service" rows="5" required></textarea>
-            
-						</div>
-
-						
-					</form>
         
         </div>
     </div>
@@ -163,22 +149,5 @@
 		</div>
 	</footer>
 
-	<script>
-		function validateForm() {
-			var packageName = document.getElementById("packageName").value;
-			var packageDescription = document
-					.getElementById("packageDescription").value;
-			var shorthairPrice = document.getElementById("shorthairPrice").value;
-			var longhairPrice = document.getElementById("longhairPrice").value;
-
-			if (packageName == "" || packageDescription == ""
-					|| shorthairPrice == "" || longhairPrice == "") {
-				alert("Please fill in all fields.");
-				return false;
-			}
-
-			return true;
-		}
-	</script>
 </body>
 </html>
