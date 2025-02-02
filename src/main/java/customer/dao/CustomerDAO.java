@@ -10,66 +10,71 @@ import java.util.List;
 public class CustomerDAO {
 
 	public int customer(Customer customer) {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        int generatedCustId = 0; 
+    Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    int generatedCustId = 0;
 
+    try {
+        con = AzureSqlDatabaseConnection.getConnection();
+        if (con == null) {
+            System.out.println("ERROR: Database connection is null");
+            return 0;
+        }
+
+        con.setAutoCommit(false); // Start transaction
+
+        // INSERT statement for Customer
+        String insertQuery = "INSERT INTO Customers (username, password, email, phoneNumber, birthDate, gender, created_at, updated_at) " +
+                             "VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+
+        // Use Statement.RETURN_GENERATED_KEYS to retrieve auto-generated ID
+        pstmt = con.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+        pstmt.setString(1, customer.getUsername());
+        pstmt.setString(2, customer.getPassword()); // Consider hashing before inserting
+        pstmt.setString(3, customer.getEmail());
+        pstmt.setString(4, customer.getPhoneNumber());
+        pstmt.setDate(5, customer.getBirthDate());
+        pstmt.setString(6, customer.getGender());
+
+        int rowsInserted = pstmt.executeUpdate();
+        if (rowsInserted == 0) {
+            con.rollback(); // Rollback if no rows inserted
+            throw new SQLException("Failed to insert customer.");
+        }
+
+        // Retrieve the generated customer ID
+        rs = pstmt.getGeneratedKeys();
+        if (rs.next()) {
+            generatedCustId = rs.getInt(1);
+            customer.setCustId(generatedCustId);
+            System.out.println("Customer registered with ID: " + generatedCustId);
+            con.commit(); // Commit the transaction
+        } else {
+            con.rollback();
+            throw new SQLException("ERROR: Failed to retrieve generated customer ID.");
+        }
+
+    } catch (SQLException e) {
         try {
-            con = AzureSqlDatabaseConnection.getConnection();
-            if (con == null) {
-                System.out.println("ERROR: Database connection is null");
-                return 0;
-            }
-
-            con.setAutoCommit(false);
-
-            String insertQuery = "INSERT INTO Customers (username, password, email, phoneNumber, birthDate, gender, created_at, updated_at) " +
-                                 "VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
-            
-            String selectCustIdQuery = "SELECT cust_pk_seq.CURRVAL FROM dual";
-
-            pstmt = con.prepareStatement(insertQuery);
-            pstmt.setString(1, customer.getUsername());
-            pstmt.setString(2, customer.getPassword());
-            pstmt.setString(3, customer.getEmail());
-            pstmt.setString(4, customer.getPhoneNumber());
-            pstmt.setDate(5, customer.getBirthDate());
-            pstmt.setString(6, customer.getGender());
-
-            int rowsInserted = pstmt.executeUpdate();
-            if (rowsInserted == 0) {
-                con.rollback();
-                throw new SQLException("Failed to insert customer.");
-            }
-
-            try (PreparedStatement selectCustIdStmt = con.prepareStatement(selectCustIdQuery);
-                 ResultSet generatedKeys = selectCustIdStmt.executeQuery()) {
-                if (generatedKeys.next()) {
-                    generatedCustId = generatedKeys.getInt(1);
-                    customer.setCustId(generatedCustId);
-                    System.out.println("Customer registered with ID: " + generatedCustId);
-                    con.commit();
-                } else {
-                    con.rollback();
-                    throw new SQLException("ERROR: Failed to retrieve generated customer ID.");
-                }
-            }
-
+            if (con != null) con.rollback(); // Rollback in case of error
+        } catch (SQLException rollbackEx) {
+            rollbackEx.printStackTrace();
+        }
+        e.printStackTrace();
+        System.out.println("ERROR: SQL Exception occurred - " + e.getMessage());
+        return 0;
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("ERROR: SQL Exception occurred - " + e.getMessage());
-            return 0;
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-        return generatedCustId;
     }
+    return generatedCustId;
+}
 
 	public int validateLogin(String username, String password) {
 	    String sql = "SELECT cust_id FROM Customers WHERE username = ? AND password = ?";
