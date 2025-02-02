@@ -3,6 +3,7 @@ package StaffAdmin.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 import customer.model.Pet;
+import customer.model.Service;
 
 public class Appointment {
     private int appId;
