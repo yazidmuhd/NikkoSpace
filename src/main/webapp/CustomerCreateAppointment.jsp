@@ -143,7 +143,7 @@
                             %>
                         </select>
 
-                        <label for="serviceId">Choose Package:</label>
+                        <label for="serviceId">Select Service:</label>
 <a href="#" class="view-service-link" onclick="showPopup()">View Service Details</a>
                         <select name="serviceId" id="serviceId" required>
                             <option value="" disabled selected>-- Select Service --</option>
@@ -184,7 +184,7 @@
 
     <div id="servicePopup" class="popup-container" style="display: none;">
     <div class="popup-content">
-        <a href="#" class="popup-close" onclick="closePopup()">× Close</a>
+        <a href="#" class="popup-close" onclick="closePopup()">Ã— Close</a>
         <div class="packages-container">
             <% if (serviceList != null && !serviceList.isEmpty()) {
                 for (Service service : serviceList) { %>
