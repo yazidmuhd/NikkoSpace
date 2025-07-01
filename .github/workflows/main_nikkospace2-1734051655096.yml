@@ -57,7 +57,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'NikkoSpace2-1734051655096'
+          app-name: 'NikkoSpaceDoraemon-1751039855540'
           slot-name: 'Production'
           package: '*.war'
           
