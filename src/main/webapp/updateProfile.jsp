@@ -2,6 +2,15 @@
 <!DOCTYPE html>
 <html>
 <script>
+	function validatePasswords() {
+            const newPassword = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+            if (newPassword && newPassword !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
 function isValidPassword(password) {
 	var regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 	return regex.test(password);
@@ -94,7 +103,7 @@ function checkPasswordStrength() {
 <div class="form-wrapper">
     <div class="header__container">
         <h2>Update Your Profile</h2>
-        <form action="CustomerController" method="post">
+        <form action="CustomerController" method="POST" onsubmit="return validatePasswords()">
     <input type="hidden" name="action" value="updateProfile">
     <input type="hidden" name="custID" value="<%= session.getAttribute("custID") %>">
 
